@@ -5,61 +5,252 @@
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
 	<script src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js' type='text/javascript'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
+	</head>
 <body>
 		<form id="mturk_form" method="post" name="mturk_form">
 			<input type="hidden" id="assignmentId" value="" name="assignmentId"/>
 
 			<h2><div id="CC">~~~~~~~~~~~~~Loading~~~~~~~~~~~~~</div></h2>
-			
-			<fieldset style="font-size: 150%">
-			<p><label><input name="V" type="radio" value="Pleasant" />Pleasant</span></label></p>
-			<p><label><input name="V" type="radio" value="Pleased" />Pleased</span></label></p>
-			<p><label><input name="V" type="radio" value="Neutral" />Neutral</span></label></p>
-			<p><label><input name="V" type="radio" value="Unsatisfied" />Unsatisfied</span></label></p>
-			<p><label><input name="V" type="radio" value="Unpleasant" />Unpleasant</span></label></p>
+			<div>
+			<h3>To select the emotion after you read this tweet message.</h3>
+			<hr></hr>
+			<h3>Valence rate</h3>
+			<fieldset style="font-size: 100%">
+			<p><label><input name="Valence" type="radio" value="Pleasant" />Pleasant</span></label></p>
+			<p><label><input name="Valence" type="radio" value="Pleased" />Pleased</span></label></p>
+			<p><label><input name="Valence" type="radio" value="Neutral" />Neutral</span></label></p>
+			<p><label><input name="Valence" type="radio" value="Unsatisfied" />Unsatisfied</span></label></p>
+			<p><label><input name="Valence" type="radio" value="Unpleasant" />Unpleasant</span></label></p>
 			</fieldset>
 			
-			
-			<fieldset style="font-size: 150%">
-			<p><label><input name="A" type="radio" value="Excited" />Excited</span></label></p>
-			<p><label><input name="A" type="radio" value="Wide-awake" />Wide-awake</span></label></p>
-			<p><label><input name="A" type="radio" value="Neutral" />Neutral</span></label></p>
-			<p><label><input name="A" type="radio" value="Dull" />Dull</span></label></p>
-			<p><label><input name="A" type="radio" value="Calm" />Calm</span></label></p>
+			<h3>Arousal rate</h3>
+			<fieldset style="font-size: 100%">
+			<p><label><input name="Arousal" type="radio" value="Excited" />Excited</span></label></p>
+			<p><label><input name="Arousal" type="radio" value="Wide-awake" />Wide-awake</span></label></p>
+			<p><label><input name="Arousal" type="radio" value="Neutral" />Neutral</span></label></p>
+			<p><label><input name="Arousal" type="radio" value="Dull" />Dull</span></label></p>
+			<p><label><input name="Arousal" type="radio" value="Calm" />Calm</span></label></p>
 			</fieldset>
 			
-			<fieldset style="font-size: 150%">
-			<p><label><input name="D" type="radio" value="Dependent" />Dependent</span></label></p>
-			<p><label><input name="D" type="radio" value="Poweriessness" />Poweriessness</span></label></p>
-			<p><label><input name="D" type="radio" value="Neutral" />Neutral</span></label></p>
-			<p><label><input name="D" type="radio" value="Powerful" />Powerful</span></label></p>
-			<p><label><input name="D" type="radio" value="Independent" />Independent</span></label></p>
+			<h3>Dominance rate</h3>
+			<fieldset style="font-size: 100%">
+			<p><label><input name="Dominance" type="radio" value="Dependent" />Dependent</span></label></p>
+			<p><label><input name="Dominance" type="radio" value="Poweriessness" />Poweriessness</span></label></p>
+			<p><label><input name="Dominance" type="radio" value="Neutral" />Neutral</span></label></p>
+			<p><label><input name="Dominance" type="radio" value="Powerful" />Powerful</span></label></p>
+			<p><label><input name="Dominance" type="radio" value="Independent" />Independent</span></label></p>
 			</fieldset>
-			
+			</div>
 			<br>
 			<input type="submit">
 		</form>
 <script language='Javascript'>turkSetAssignmentID();</script>
 <script>
-	var Data;
-	$(document).ready(function(){
-		$.get("https://gist.githubusercontent.com/bshmueli/c99fc0abf56460e644bd610bf3024e83/raw/720285d133c85d94e0aa3fe3edcc199f6d99e3f7/lab4-data.csv", function(data, status){
-		data=data.split("\n");
-		context=data[text];
-		var set=1;
-		while(set<10){
-			if(context[set]==','){break;}
-			set+=1;
-		}
-		context=context.substring(set+2,context.length-1);
-		Text.innerHTML=context;
-		});
-	});
 	var getUrlString = location.href;
 	var url = new URL(getUrlString);
 	text=url.searchParams.get('id');
 	var Text = document.getElementById('CC');
+	var user=['if you say Dragonball (Z , Kai etc) your opinion is invalid on anime takes😊',
+ 'With @realDonaldTrump I took all of the bluster for self confidence, I missed it. Didn’t realize he was over compensating for very low self-esteem. Also I equivocated on his rank amorality. Did you do that? If not good for you. If so, please come around so we can fix this. 🇺🇸',
+ 'Cryin’ Chuck Schumer just said, “The American people want a fair trial in the Senate.” True, but why didn’t Nervous Nancy and Corrupt politician Adam “Shifty” Schiff give us a fair trial in the House. It was the most lopsided & unfair basement hearing in the history of Congress!',
+ 'you broke as hell if you order bottomless mimosas. you cant afford individual drinks? tacky.',
+ 'Virginia has the best Unemployment and Economic numbers in the history of the State. If the Democrats get in, those numbers will go rapidly in the other direction. On Tuesday, Vote Republican!',
+ 'Never Trumper Republican John Bellinger, represents Never Trumper Diplomat Bill Taylor (who I don’t know), in testimony before Congress! Do Nothing Democrats allow Republicans Zero Representation, Zero due process, and Zero Transparency....',
+ 'Senate hearing on the Impeachment Hoax starts today at 1:00 P.M.',
+ 'The Whistleblower gave false information & dealt with corrupt politician Schiff. He must be brought forward to testify. Written answers not acceptable! Where is the 2nd Whistleblower? He disappeared after I released the transcript. Does he even exist? Where is the informant? Con!',
+ 'ill say it once i’ll say it 1,000 times if racists die i celebrate. trump dies? party. kaitlin bennett shits herself to death? celebrate. richard spencer gets punched to a pulp? dance on his grave. these people are cancer on society. no i will not debate this either',
+ 'Just landed in the United Kingdom, heading to London for NATO meetings tomorrow. Prior to landing I read the Republicans Report on the Impeachment Hoax. Great job! Radical Left has NO CASE. Read the Transcripts. Shouldn’t even be allowed. Can we go to Supreme Court to stop?',
+ 'SCRAPE WINS FC',
+ "The DA has a disorder called Hemophilia in which a person's blood is not able to clot normally! It is hemorrhaging blood from self inflicted injuries! I don’t see how it can be saved!",
+ 'Why are House Dems afraid of due process?  What are they hiding in their sham impeachment process?',
+ 'In USA to speak properly is to sound white....to act responsible in life is to act white..and to go to a white school is embarrassing 😆😆',
+ 'i swear charles melton is avoiding me i can’t find that dude NOWHERE!! imma get my pic idc',
+ 'I’m obligated to “don’t stop believing” or whatever after last week but I mean, I’ve seen this a lot in my years. Everyone loves the Titans and we’re committing all the horrible penalties and yeah. It’s just yeah.',
+ '“Donald J. Trump is an absolutely historic President already, in less than 3 years in office. His record is there for everyone to look at & to examine and compare. This is an illegitimate effort to overthrow a President, not a formal Impeachment inquiry.” @LouDobbs  Thank you Lou',
+ 'All Giannas do is Dunk lol this nigga might hit 2 3s in a game but thats why yall on his dick so much.. he 7 ft with long ass arms thats can dunk from standing at the top of the Restriction circle 😂',
+ "If I had to bet my pinkie toe on whether BTC will reach 14K or 3K first, I would say 3K. Simply because BTC is in a clear bear market downtrend, and no confirmed reversal has formed yet. We may be reversing now, but it's too early to confirm. The trend is my pinkie toe's friend.",
+ "I'm not thankful for the women in the military. Their place isn't to protect our country. God gave men this difficult task. It's sad to see mothers leave their children for extended periods of time to do something that they haven't been called to do. Men are the protectors.",
+ 'Our case against lyin’, cheatin’, liddle’ Adam “Shifty” Schiff, Cryin’ Chuck Schumer, Nervous Nancy Pelosi, their leader, dumb as a rock AOC, & the entire Radical Left, Do Nothing Democrat Party, starts today at 10:00 A.M. on @FoxNews, @OANN or Fake News @CNN or Fake News MSDNC!',
+ 'They are really mad at Senator Joe Munchkin in West Virginia. He couldn’t understand the Transcripts. Romney could, but didn’t want to!',
+ "Two questions to fans of Labour broadband policy :\n1. Why is fibre better/quicker than 5G?\n2. Why should I get free broadband when I'm happily paying for it right now?",
+ 'Conor McGregor looked better against Mayweather than Wilder did against Fury tonight. Don’t at me. #WilderFury2',
+ 'I know Kanthan Pillay on a personal level. He was kicked out of Uni in the 80s for taking part in the boycott protests against the apartheid govt. His nephew married a Zulu lady and he conducted the lobola negotiations. This is the same man who black Twitter are calling a racist.',
+ 'We have now liberated the Twitter account, previously suppressed unfairly in the aftermath of my resignation as National Security Advisor.  More to come.....',
+ "I was sent a dm by a new follower that said they were unfollowing bcuz I'm not very ladylike.\nMy response:\nI'm not a fake person, I'm real. I cuss, and I have a very inappropriate sense of humor. Nothing offends me and I have no filter. If that gets your panties....",
+ "#Bitcoin is neither money nor a currency.  It's a digital asset. The question  @APompliano and I are debating is whether it's a safe haven asset that stores value over time, or a risk asset with a market price than can rise or fall substantially over time. The answer is obvious.",
+ 'MERRY CHRISTMAS!',
+ 'The lamest shit you can do is get glasses that turn into shades when you go outside',
+ 'I’ve had a very difficult day emotionally, but to see a huge room of people swaying along to my howling and taking time after to say lovely things has lifted my spirits hugely.\n\nThank you from the bottom of my heart.\n\nOh fuck. I now sound woke.',
+ 'Tulsi Gabbard deserves much more respect and thanks than this. She literally just got back from serving our country abroad.',
+ 'good god nobody parties harder than people with kids at home,',
+ 'Breaking News: The President of Ukraine has just again announced that President Trump has done nothing wrong with respect to Ukraine and our interactions or calls. If the Radical Left Democrats were sane, which they are not, it would be case over!',
+ 'Like all of Banco staff went on lunch the same time man .. wtf',
+ 'Where’s the Whistleblower?',
+ 'I’m sad they didn’t get to shake hands up there like they wanted to and tried to. It was so sad seeing this. Its like a love story up there. OMG Its the notebook.\nNow get out that fucking cheque book and donate to my charity and the real bad mans back',
+ 'Nights like this.. I wish I had me a little lady friend.🙄. I think I’m going to give BlackPeopleMeet a try 😂',
+ 'Yesterday Jay Sekulow looked right at Schiff\'s FAT face and said "I want YOU as a witness... I want Hunter Biden as a witness and I want JOE Biden as a witness"\n\nBOOM!  LIKE A BOSS',
+ '“The reason they are not sending the Articles of Impeachment to the Senate is that they are so weak and so pathetic.” @LindseyGrahamSC @MariaBartiromo  The great Scam continues. To be spending time on this political Hoax at this moment in our history, when I am so busy, is sad!',
+ 'Mr. President, let’s set politics aside. My husband earned all his accolades after a lifetime of service. I’m preparing for the first holiday season without the man I love. You brought me down in a way you can never imagine and your hurtful words just made my healing much harder.',
+ 'I will vote for someone who does not yell, will not tweet, will submit the SOTU in writing, will appear at no sporting events and reads books. I ask for so little..',
+ '#LUFC can set all the deadlines they want but #SaintsFC are not interested in giving them Che Adams. Am also reliably informed the player is happy at #SaintsFC nothing to see here.',
+ 'Schiff is giving Republicans NO WITNESSES, NO LAWYER & NO DUE PROCESS! It is a totally one sided Witch Hunt. This can’t be making the Democrats look good. Such a farce!',
+ 'Georgia has national championship talent with a JV offensive game plan.',
+ 'Mini Mike is part of the Fake News. They are all working together. In fact, Bloomberg isn’t covering himself (too boring to do), or other Dems. Only Trump. That sounds fair! It’s all the Fake News Media, and that’s why nobody believes in them any more.',
+ 'I am SO SICK of @MeghanMcCain turning EVERY political interview into a tearful monologue about her father.\n\nIt is a CHEAP, emotional maneuver that she uses so that nobody can question her non-existent authority.\n\nShe’s a spoiled brat!\n\nGREAT JOB, TODAY @DonaldJTrumpJr!!',
+ 'I have had to physically stop myself from trolling @mattgaetz all day today.\n\nIT’S BEEN SO HARD TO NOT TROLL HIM TODAY.\n\nGOD HELP ME.\n\n🤐\n\n(so very hard)',
+ 'I believe in sending flowers, and paying for dinner, opening doors and holding hands, trips to Disneyland and making future plans, planning road trips, and PDA and saying I love you and always meaning it.\n\nNo wonder I can’t date in 2019, I’m too fucking old fashioned. 💀',
+ 'Stand by for news — @SpecialReport - with a full hour of news stories and panel ahead.   My Voice is a little shaky today from a cold but I will make it through.',
+ 'How u stripping,selling pussy and working in sales at Macy’s lol',
+ 'Democrats want the Senate to do their work for them.\n\nBut the Senate’s job is to review what the House sent over, not hold an impeachment* do over.',
+ 'every straight person i know is pathetic only the men though straight women are queens',
+ 'Read the Transcripts!',
+ '“The circus is coming to town. The corrupt, compromised, coward & congenital liar Adam Schiff Show on Capital Hill, brought to you by his raging psychotic Democrats & the top allies in the Media Mob. Everything you’re going to see in the next two weeks is rigged.....',
+ 'Corrupt politician Adam Schiff’s lies are growing by the day. Keep fighting tough, Republicans, you are dealing with human scum who have taken Due Process and all of the Republican Party’s rights away from us during the most unfair hearings in American History......',
+ '25 Million Evangelical Christians are not registered to vote. We are working hard to get them registered! @robertjeffress @LouDobbs',
+ 'Mini Mike Bloomberg has instructed his third rate news organization not to investigate him or any Democrat, but to go after President Trump, only. The Failing New York Times thinks that is O.K., because their hatred & bias is so great they can’t even see straight. It’s not O.K.!',
+ 'Sitting in a hot bath, full of overflowing bubbles, looking at the league table that says #WBA are top. Beside me I have a pizza, cigar and beer. So proud to support @WBA',
+ 'These were Mueller prosecutors, and the whole Mueller investigation was illegally set up based on a phony and now fully discredited Fake Dossier, lying and forging documents to the FISA Court, and many other things. Everything having to do with this fraudulent investigation is...',
+ 'The Whistleblower gave false information & dealt with corrupt politician Schiff. He must be brought forward to testify. Written answers not acceptable! Where is the 2nd Whistleblower? He disappeared after I released the transcript. Does he even exist? Where is the informant? Con!',
+ 'F21 is so annoying for cropping 90% of their tops and sweaters.. some of us are fat',
+ 'Dow hits 28,000 - FIRST TIME EVER, HIGHEST EVER! Gee, Pelosi & Schitt have a good idea, “lets Impeach the President.” If something like that ever happened, it would lead to the biggest FALL in Market History. It’s called a Depression, not a Recession! So much for 401-K’s & Jobs!',
+ 'Billionaire Bloomberg just bought the @DNC. #PayToPlay #StandWithTulsi',
+ 'I can’t stand when niggas say they didn’t want to have kids but they nutted in a woman!! YOU ARE AN IDIOT! YOU DESERVE TO PAY EVERY RED CENT OF CHILD SUPPORT! I HOPE YOU NIGGAS STAY ON CHILD SUPPORT FOREVER MAY THE MOTHER OF YOUR CHILDREN EAT YOU NIGGAS ALIVE!#SoShamelessPodcast',
+ 'Based on the information released last night about the Fake Whistleblowers attorney, the Impeachment Hoax should be ended IMMEDIATELY! There is no case, except against the other side!',
+ "I'm now in the 7-8 hours of solid sleep zone and waking up naturally between 6-7am 😍.\n\nI love watching the sun rise through my bedroom window 🌄\n\nFeeling a bit groggy from last night's valium but I have good plans for today ❤.\n\nHappy Saturday #RecoveryPosse\n\nDay 39",
+ 'Congressional Do Nothing Democrats are being absolutely decimated in their districts on the subject of the Impeachment Hoax. People that voted for them are literally screaming in their faces. Crazy Nancy is finding defending Shifty Schiff harder than she thought! #2020Election',
+ 'Mini Mike is a 5’4” mass of dead energy who does not want to be on the debate stage with these professional politicians. No boxes please. He hates Crazy Bernie and will, with enough money, possibly stop him. Bernie’s people will go nuts!',
+ 'Growing up playing girls’ sports every girl with short hair who was good was accused of being a boy by parents on opposing teams. If pending bills pass those girls are going to be forced to get their genitals and hormones and chromosomes checked to “prove” their sex.',
+ "I spend too much time stressing about software choices as an user/consumer. I'm beginning to worry this is unhealthy, I literally lose sleep over this stuff. 😐",
+ 'Speaker Pelosi and Chuck Schumer’s drive to try and rig the trial against the President is misplaced. There is no factual basis for the Articles of Impeachment that passed the House. This President will be exonerated.” William McGinley  @foxandfriends',
+ 'The call to the Ukrainian President was PERFECT. Read the Transcript! There was NOTHING said that was in any way wrong. Republicans, don’t be led into the fools trap of saying it was not perfect, but is not impeachable. No, it is much stronger than that. NOTHING WAS DONE WRONG!',
+ 'The DA is finished:\n\nA large number of DA Cllrs in Tshwane no longer want the DA, if the DA thought it is a Jhb problem, they are wrong. Tshwane is worse (Black and White caucuses) than Jhb. In fact Jhb is a "scratch of the surface".\n\n🔥🔥🔥🔥🔥🔥🔥\n\n@MYANC @MbalulaFikile @Our_DA',
+ "Archie doesn't need to have playdates with his cousins. He has many other friends. Louis has his siblings and his other cousin Arthur if Kate wants him to play with kids, he will only interact with Archie when it is necessary. That family will just use him for their own gain.",
+ 'Yesterday, one of my one year olds was crying during nap time so I moved to rub her back and she calmed down and then started rubbing my leg. It was so sweet. \U0001f97a\U0001f97a\U0001f97a',
+ 'Damn I really don’t have any friends to do my hood rat activities with',
+ 'Why aren’t all House Dems showing support for Iranian protesters who have courageously taken to the streets in Iran in favor of freedom, stability, prosperity & peace. Just checked the Twitter feeds of Pelosi, Hoyer, Clyburn, Schiff & others. Nothing! Why the silence on this?!?!',
+ 'Drag Race UK is unbearable.',
+ "#amjoy That's Donald Trump's psychopathology talking. That's at the core of everything he does/says. It warps his thinking and thus his behavior. And that's what makes him a clear/present danger to our national security & the world & should post haste evoke the 25th Amendment.",
+ 'Some people on here just make me laugh!!! They follow you JUST so they can try and put you down, and by try I mean fail!! 😂😂😂 honestly if you don’t like me please click unfollow Cos really you’re just embarrassing yourself!',
+ 'The leaks out of today’s witness interview have been laughably overblown and don’t tell the full story\n\nStill no evidence of quid pro quo. Much of the statement and hearsay allegations didn’t hold up against any real scrutiny.\n\nThe FULL transcript should be released immediately',
+ 'My son is taking part in a social experiment.\n\nHe has to wear a Hearts top for 2 weeks to see how the people react.\n\nSo far he has been spat at, punched, kicked and verbally abused.\n\nIt will be interesting to see what happens when he leaves the house.',
+ "What's happening in Hong Kong is incredible.\n\nWe've seen over two million people come to the streets protesting for freedom and democracy.\n\nAnd it's amazing to see them holding up quotes from the American Founding Fathers.\n\n#StandForFreedom #StandWithHongKong #StandWithHK",
+ 'Silence is bliss, or so they say... But is it truly?',
+ 'Normie Democrats can’t stand Sanders/DSA Twitter, but I think they’d learn to love it fast if Sanders was the nominee. All of that posting aimed at Donald Trump? Folks!',
+ 'Adam Gase stumbled through his press conference. No accountability at all. Tried to pass the buck to “those guys” in the front office when asked about Kelechi Osemele.\n\nHe showed no leadership of any kind.\n\nEmbarrassing for the organization.',
+ 'If Shifty Adam Schiff, who is a corrupt politician who fraudulently made up what I said on the “call,” is allowed to release transcripts of the Never Trumpers & others that are & were interviewed, he will change the words that were said to suit the Dems purposes. Republicans...',
+ "Theater critics use the word 'delicious' to describe a performance or a show they like constantly and yet food critics rarely utilize that word when describing an actual meal.\n\n#RandomThoughts",
+ 'let me see if he can run from a shotgun',
+ 'If you’re looking for innocent and sweet....don’t look at me.\n\nMy sense of humor is warped, I have a fucked up view of romance and I swear like a goddamn motherfucking sailor.',
+ 'Mini Mike is a 5’4” mass of dead energy who does not want to be on the debate stage with these professional politicians. No boxes please. He hates Crazy Bernie and will, with enough money, possibly stop him. Bernie’s people will go nuts!',
+ 'I’m gonna start lip-syncing',
+ "Khune paid lobola after cheating with a teenager. Reminds me of a tweet that said there is nothing a marriage proposal can't fix to some women. You can treat her like dirt but ask her to marry you she will gladly say yes. 🤦 #KHUNE",
+ 'Very worrying on news tonight the number of #coronavirus cases in South Korea has increased. Anyone attending matches at TOTTENHAM will know we have hundreds of tourist fans from South Korea to see their idol Heung Min Son, should we be alarmed? #COYS @patel4witham',
+ 'A minor child deserves privacy and should be kept out of politics. Pamela Karlan, you should be ashamed of your very angry and obviously biased public pandering, and using a child to do it.',
+ 'Can you believe that I will be impeached today by the Radical Left, Do Nothing Democrats, AND I DID NOTHING WRONG! A terrible Thing. Read the Transcripts. This should never happen to another President again. Say a PRAYER!',
+ 'Cryin’ Chuck Schumer is now asking for “fairness”, when he and the Democrat House members worked together to make sure I got ZERO fairness in the House. So, what else is new?',
+ 'Shifty Adam Schiff is a CORRUPT POLITICIAN, and probably a very sick man. He has not paid the price, yet, for what he has done to our Country!',
+ 'With your help I would like to rename the following public spaces;\n\nJKIA Airport\nUhuru Highway\nJKUAT University\nMama Ngina Drive\nKenyatta University\nUhuru Park\nUhuru Gardens\nKenyatta Market\nMama Ngina Street\nKenyatta Hospital\nKenyatta Uni Refferal Hospital\n\nShare deserving names.',
+ 'I just watched aiesha yesufu rant now on instagram! Edakun is that lady ok at all? What is her problem? Proudly bragging that she’s a mad woman only that she does not have a bed in a mental home yet! Is that woman normal at all? I think she should be checked o! Hian! 😳😳',
+ 'Apparently the young people now say “slaps”?\n\nE.G. “That movie slaps.”\n\nDo y’all know about this? Am I using it right?',
+ 'Nancy Pelosi is looking for a Quid Pro Quo with the Senate. Why aren’t we Impeaching her?',
+ 'Where’s the Fake Whistleblower?',
+ 'For those who have heard my voice, what do I sound like?',
+ 'Hi Tari please keep anonymous.\nBroke up with my girlfriend month ago, ever since I’ve just been in a spiral of self destruction and sabotage.She blocked me, but i still text the number because only person i want to talk to.\nNot like she is perfect , red flags here and there',
+ 'Vinatieri just missed a potential game winning field goal from 43 yards away. Why didn’t Head Coach Frank Reich know he was going to miss it? Last week he knew he was going to make the 51 yarder. How can that be?',
+ 'Attention @MittRomney:\n\nEveryone thinks you are a spinless hack and a stone cold loser.\n\nI hope the Republican Caucus kicks you out immediately and the people of Utah vote to recall your pathetic, carpet bagging self.\n\n#RecallRomney',
+ 'The Stock Market hit another Record High yesterday, number 133 in less than three years as your all time favorite President, and the Radical Left, Do Nothing Democrats, want to impeach me. Don’t worry, I have done nothing wrong. Actually, they have!',
+ 'The Fake News Media is doing everything possible to belittle my VERY successful trip to London for NATO. I got along great with the NATO leaders, even getting them to pay $130 Billion a year more, & $400 Billion a year more in 3 years. No increase for U.S., only deep respect!',
+ 'The Whistleblower got it sooo wrong that HE must come forward. The Fake News Media knows who he is but, being an arm of the Democrat Party, don’t want to reveal him because there would be hell to pay.\n Reveal the Whistleblower and end the Impeachment Hoax!',
+ 'Pelosi is now leading a delegation of 9, including Corrupt Adam Schiff, to Jordan to check out Syria. She should find out why Obama drew The Red Line In the Sand, & then did NOTHING, losing Syria & all respect. I did something, 58 missiles. One million died under Obama’s mistake!',
+ "My Sunday morning in a mountain refugio in Spain, so far. Washing my socks by hand with bath soap. Picking up scratchy coverage of the rugby. Coordinating a response to the PM's silliness. Advising on the Lib Dem Federal Constitution. Yours?",
+ 'Even the Washington Post has called Schiff a liar. It is clear he knows and even coached the whistleblower.\n\nHow can anybody take his information seriously? He is deliberately misleading the public about @realDonaldTrump because he knows their impeachment case is baseless.',
+ "PSA: I'm not an egalitarian, of any stripe.",
+ '2. Here is a Warning, you have all been told the truth AGAIN!! I STRONGLY ADVISE ALL OF YOU TO STOP LYING ABOUT ME.',
+ 'Reports of ongoing Russian interference in US elections to benefit the President & undermine our democracy highlight the need for action.\n\nOur intel & law enforcement officials have been clear about the threat.\n\nWhy doesn’t the President have a plan to protect our elections?',
+ 'Another day another mia nude sent to my snap chat that I almost accidentally open in front of my mom',
+ "Most of us we have amazing partners but we don't realize that🙅\u200d♂️ because we spend most of our times comparing our current with our previous and even envying other people's relationships instead of moulding our own into what we want them to be",
+ '#StopTheCoup',
+ 'Congress wasted time and millions of dollars on a partisan impeachment. In return, taxpayers got nothing. Democrats’ misaligned priorities have cost the people solutions that could have actually improved their quality of life.',
+ "Lee beating Rollins and Reigns would have jolted him so high. But Vince doesn't know how to make new stars. Pretty sad.\n\n#SurvivorSeries",
+ 'If Ive ever talked ill about you this year, I am sorry because starting this new decade your dead to me. These past few years I have been through absolute hell and trauma, but as we embark on a new decade, I plan to reach new endeavors. I cant have negativity....',
+ '“Schiff blasted for not focusing on California homeless.” @foxandfriends  His District is in terrible shape. He is a corrupt pol who only dreams of the Impeachment Hoax. In my opinion he is mentally deranged!',
+ 'Orange juice is better than apple juice 🤗',
+ 'Came from meetings to see Wiggins to Dallas rumors?\n\nIf it gets this bum THJ out of Dallas then I’m \U0001f970\U0001f970\U0001f970',
+ 'How low can liddle Adam Bull Schiff go? I was never in Kiev. For them to take some texts my buddy’s and I wrote back to some dweeb we were playing with that we met a few times while we had a few drinks is definitely laughable. Schiff is a desperate turd playing with this Lev guy.',
+ 'Hey, @realDonaldTrump, maybe your New Year’s resolution should be to stop adding to the stigma of mental illness and not use terms in your tweets like, “crazy” or “lost his mind”.\n\nThe 44 million of us who suffer sure would appreciate it. 🎉',
+ 'The Greatest Witch Hunt In American History!',
+ 'SUCH ATROCIOUS LIES BY THE RADICAL LEFT, DO NOTHING DEMOCRATS. THIS IS AN ASSAULT ON AMERICA, AND AN ASSAULT ON THE REPUBLICAN PARTY!!!!',
+ 'Oh dear! How will our bigotted kids become woke without Radio 1 – one of dozens set for the axe – educational TV like "Danny Dyer: I Believe in UFOs" and QT panels packed with condescending metropolitan liberals.\n\nHow will Britain ever rejoin the EU without mass propaganda? 😫',
+ 'Uhuru Kenyatta legacy issa scam…\nSchool laptops scam\nSGR scam\nEurobond scam\nGalana Kulalu scam\nLast mile connectivity scam\nSecurity cameras scam\nDams scam\nContainer terminal scam\nHuduma namba scam\nStawi loan app scam\nEarly oil export scam\nMedical equip scam\n\nwhat have I missed?',
+ 'An unpublished manuscript that only “anonymous sources” have seen, leaked at the very last minute, just as Democrats are losing what little impeachment momentum they had left.\n\nWe’ve seen this before.\n\nThis is a desperate attempt to resusciate their dying political dreams.',
+ 'what other singer do I sound similar to I’m curious',
+ 'don’t ever feel like you gotta deal with me .. just cut me off lol',
+ 'Y’all bitches weird asf \U0001f974 being cool w y’all babyfather babymother shid I WOULD NEVER ! 🗣 idgaf fuck the kids bond watever the situation I’m just not with it 💯',
+ 'He\'s  returned from yet another battle, exhausted. He\'s going to wander up behind @unalterablyours  and hug her from behind.\n\n"Hello, my darling."\n\nHe greets her with a slightly sleepy tone.',
+ 'Trapped gas be the worst',
+ 'Bloomberg is almost a foot shorter than Trump, and maybe half a foot shorter than Biden.\n\nHis voice and facial expressions make him sound and look harsh and unlikeable.\n\nOptics like that matter in a national race. They matter a lot.',
+ 'Seeing y’all be in blasphemy and heartbroken over celebrity deaths kills me everytime',
+ "Let us speak no more of the Raiders being good. They've beaten bums. These are the facts.",
+ 'IS ANYONE GONNA TELL THAT VEGAN PRICK TO STFU AND LET THE OTHER POOR WOMAN SPEAK. #ThisMorning DONT BE FUCKING RUDE, NOT EVERYONE HAS TO BE VEGAN',
+ 'Smoking in bars was good. First of all it made people like me happy. Secondly it kept other people (joyless nerds) out of bars and they could stay home and play settlers of catan or whatever, thereby extending their lives.\n\n*bangs gavel*',
+ 'Wow! Crazy Bernie Sanders is surging in the polls, looking very good against his opponents in the Do Nothing Party. So what does this all mean? Stay tuned!',
+ 'The Ukraine investigation is just as Corrupt and Fake as all of the other garbage that went on before it. Even Shifty Schiff got caught cheating when he made up what I said on the call!',
+ '.@marcthiessen  “Voters say the Democrats are trying to take away their votes. Pelosi was right the first time. Impeachment has backfired thoroughly on the Democrats. How can you Impeach the President for going to the courts?”',
+ 'Men still going to women’s fathers for permission to marry is beyond infuriating. Women are not fucking cattle to be traded, we can make our own decisions and our fathers don’t get a say in that as if we’re property to be traded from one man to another.\n\nSays a lot about a man.',
+ '#Unathi this backlash is deserved. She must learn. She did the same @METROFMSA . I hope @IdolsSA, takes serious steps against her. Our kids watch that show. Are they now supposed to feel inferior  because they not Xhosa?',
+ 'I’m partial to singing “Boris Johnson is a cunt” to the tune of “I’ve Been Driving In My Car” by Madness. #bbcqt',
+ 'First of all, if you just smoke "weed" then we aren\'t even on the same level. I won\'t purchase or smoke weed unless I know the strain and have verified the quality. I don\'t match with people. I smoke tiny amounts out of a bowl throughout the day.',
+ 'All those Guys who plait their hairs and put on earring, May God add menstruation for you.',
+ 'The Whistleblower gave false information & dealt with corrupt politician Schiff. He must be brought forward to testify. Written answers not acceptable! Where is the 2nd Whistleblower? He disappeared after I released the transcript. Does he even exist? Where is the informant? Con!',
+ 'I hate arrogant people\nRude people\nAngry people',
+ 'Thanks for letting us know. See you real soon... RT @Rob60290157: @Working94316509 Got some Cali weed, so yes probably the same.',
+ 'If we want to help the Iranian people we should start by lifting the travel ban.',
+ 'Read the Transcripts! Also, see where I say “us” (our Country) as opposed to “me” (meaning me) and where I then say that the Attorney General (of the United States) will call you. People still remember Schiff’s made up and fraudulent version of my conversation. Witch Hunt!',
+ 'Little girls are so cute putting their mcms as their headers and posting them on their stories 😂when you get older luv he’ll dash that phone out your hand if you try snap him he can’t get caught cheating 💀',
+ 'Does no-one nick phones anymore? I could have done with mine being nicked last night. Christ. the. night.',
+ 'Good News Pierre Delecto joined fellow Republicans in voting to shoot down Dem amendments  👍👍',
+ 'Every American Jew knows a Bernie Sanders in his/her personal life: Someone nominally born Jewish but is a hardline atheist, secularist, and socialist who forsakes God, country, and tradition alike.\n\nThese self-haters do not speak for proud American Jews and American Zionists.',
+ 'Can’t no man make a woman cum from eating her pussy. 😂 Don’t @ me.',
+ 'Republicans only have til Saturday to request witnesses for ALL open hearings.\n\n-@RepAdamSchiff decides WHICH witnesses testify, if any\n-Schiff decides WHEN witnesses testify, if at all\n-President’s counsel still excluded\n\nDoes this sound like due process?',
+ 'It makes no sense how people get home around 5am from groove😨. By the time it was 9, I was hella grumpy. 😂',
+ 'Bernie Sanders will make an excellent president of Twitter, a stupid and puerile place filled with bumper sticker ideas presented in aggressively idiotic fashion, without regard for real-world consequences',
+ 'The next person who tells me I look tired will get told to fuck right off. Getting sick of it now #Iknowwwwww #noneed',
+ 'After Mueller it should have been OVER.\n\nThe whole Ukraine issue, particularly the way the House of Representatives is doing it, is a joke.\n\nWe’re less than a year away from the 2020 election.\n\nIf you don’t like Trump -- vote against him.\n\nLet the American people decide!',
+ 'I am 35.\nI am fat.\nI have grey hair.\nI am wrinkled.\nI have battled and survived.\n\nI am grown and I can speak my fucking mind whenever, wherever and however I like.\nYou will never stop me 🖕🏼❤️🖕🏼',
+ 'Get the fucking TRAITOR out of our god damned White House!!!  @realDonaldTrump',
+ 'Vindictive Vindman is the “whistleblower’s” handler.',
+ "#IStandWithMaya\n\nActually no I don't, and if you do the best thing you can do for society is die",
+ "wasn't y'all just calling popsmoke ugly lmfao",
+ 'Our case against lyin’, cheatin’, liddle’ Adam “Shifty” Schiff, Cryin’ Chuck Schumer, Nervous Nancy Pelosi, their leader, dumb as a rock AOC, & the entire Radical Left, Do Nothing Democrat Party, starts today at 10:00 A.M. on @FoxNews, @OANN or Fake News @CNN or Fake News MSDNC!',
+ 'Nigga got hurt ONE time and now everybody gotta pay. Women get hurt so much and still are able to give. Let’s talk about it.',
+ 'what do you guys think of the #chillsvideo ?!!',
+ 'I need to see the new Rick and Morty episodes but really want to wait to binge watch the whole season 😂',
+ 'Nervous Nancy Pelosi is doing everything possible to destroy the Republican Party. Our Polls show that it is going to be just the opposite. The Do Nothing Dems will lose many seats in 2020. They have a Death Wish, led by a corrupt politician, Adam Schiff!',
+ 'The Amazon Washington Post and three lowlife reporters, Matt Zapotosky, Josh Dawsey, and Carol Leonnig, wrote another Fake News story, without any sources (pure fiction), about Bill Barr & myself. We both deny this story, which they knew before they wrote it. A garbage newspaper!',
+ 'Schiff and the Dems have created this whole thing, they reverse engineer it. They’ve been vowing to impeach for three years. Why should we listen to them? Why should we want to?”  @greggutfeld @FoxNews',
+ 'Who do the 49ers play next week? Clovis west?',
+ 'What these Boomer MAGA Q Tards fail to realize is that the 2nd Amendment doesn’t mean shit when they import brown hoards to vote away our rights. Silly rallies don’t fix anything, we’re still outnumbered, and the margin is growing every year.',
+ 'Fuck dnc  & Bloomberg -\nWho want ONE thing-\nto stop sanders -\nok you wanna make this like 68 ?  U want to lie - try to buy it\n& Just shove it down our throats ?\nF U C K you\nWe are coming for you too -  believe it -',
+ 'The Greatest Witch Hunt In American History!',
+ 'Mark Levin, a great lawyer and scholar, said last night on his @marklevinshow, that all you have to do is read the transcript of the call, you do not need Never Trumpers or other witnesses to say what it means or says. It is plainly and very well stated for all to see. Witch Hunt',
+ 'The Democrats are Fixers, and they are working overtime to FIX the Impeachment “Process” in order to hurt the Republican Party and me. Nancy Pelosi should instead Fix her broken District and Corrupt Adam should clean up & manage the California forests which are always burning!',
+ 'Our case against lyin’, cheatin’, liddle’ Adam “Shifty” Schiff, Cryin’ Chuck Schumer, Nervous Nancy Pelosi, their leader, dumb as a rock AOC, & the entire Radical Left, Do Nothing Democrat Party, starts today at 10:00 A.M. on @FoxNews, @OANN or Fake News @CNN or Fake News MSDNC!',
+ "ADVANTAGES OF DATING A YOUNGER WOMAN\n\n1st n foremost, let me make it clear, by young, I'm referring to 18 yrs +, before the feminists accuse me of child abuse. Now that's cleared up, I'm going to list the advantages of dating a younger woman (25 & below) over the older ones⬇️⬇️⬇️",
+ "I personally feel like Congratulations and Congrats don't carry the same weight...Congrats comes with an attachment of jealous 🙄",
+ 'If Shifty says it’s just a coincidence that he is invested in same companies that got $7b in laundered Ukrainian money will you believe him? Well maybe if he stepped down until he was investigated. If I was Independent Council I would be quick and fairer than Mueller.',
+ 'Wow, back to  #RussianCollusion , due to a NY Times speculation piece.  Liberals will run with anything, this unhinged behavior just keeps feeding the Trump base, growing and growing Dems!!! Keep it up!!! Even Obama is ashamed of you',
+ 'Today my normal UPS driver was out sick, I had a package that I had to have before an event tonight, called UPS they said it will not be there till 8pm\nCalled my normal UPS drive and he went out and got the package on his own and hand delivered it to me!',
+ 'You’re fiddling it, rigging it, @afneil puts to @joswinson on her plans for a second referendum with a completely different voting franchise. Too. Bloody. Right. #andrewneilinterviews',
+ 'Imagine if there was an anorexia/bulimia acceptance movement, where people applauded women for throwing up their meals on instagram.\n\nThat’s the inverse of the Left’s fat acceptance movement.\n\nThis fashionable stupidity needs to stop.',
+ "When will Californians stand up and fight for themselves instead of evacuating every other week? Government isn't going to save you or your homes! #kinkaidfire",
+ "At the very least, the Patriots look dumb here. Having a staffer shooting an opposing sideline in plain sight, based on their history, would be a little like if a USC ass't brought a recruit to a car dealership after the Reggie Bush scandal.\n\nDoesn't mean they're guilty. But ...",
+ 'Payday and all money gone bcos I spent too much on my cc \U0001f970',
+ "Under @jeremycorbyn we would go back to square one.\n\nHe'll spend months dithering and delaying\n\nAnd that would lead to yet another chaotic referendum\n\nVote @Conservatives we have a great deal - let's #GetBrexitDone",
+ 'Republicans are seeing what a real leader looks like. And they’d be wise not to mess with Speaker Pelosi. She will insure a fair Senate trial. She will insure the public sees that this President has committed Abuse of Power & Obstruction of Congress. She will insure the truth.',
+ 'Democrat “leadership,” despite their denials, are putting tremendous pressure on their members to vote yes on this ridiculous Impeachment. If they vote yes, it will be much easier for Republicans to win in 2020!',
+ 'You are not entitled to a job if you refuse to treat your coworkers with the respect and dignity to which they are entitled. The workplace does not benefit from marginalizing anyone based on sex or gender, which are not the same thing... #JKRowling. #transrightsarehumanrights'] 
+	
+	Text.innerHTML=user[text]; 
 </script>
 </body>
 </html>
