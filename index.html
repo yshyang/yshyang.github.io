@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>LiteLLM Chat CORS 定時重試測試器</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .section { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 15px; background-color: #007BFF; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:disabled { background-color: #cccccc; }
+        select, input { padding: 8px; width: 300px; margin-top: 5px; display: block; }
+        pre { background: #f4f4f4; padding: 15px; border-left: 5px solid #007BFF; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; }
+        .error { border-left-color: #dc3545; }
+        .success { border-left-color: #28a745; }
+        .warning { border-left-color: #ffc107; background: #fff3cd; padding: 10px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<h1>LiteLLM CORS 安全性測試工具 (4000 輪詢版)</h1>
+<p>此工具專注測試 <code>http://localhost:4000</code>。若遭瀏覽器攔截，請注意畫面上方的權限提示並點選允許。</p>
+
+<div class="warning">
+    <strong>💡 提示：</strong> 
+    如果 Chrome 彈出「要求存取這台裝置的其他應用程式或是服務」通知，<strong>請點選「允許」</strong>。
+    程式目前設定為每 5 秒自動重試一次，允許後系統將會自動載入模型。
+</div>
+
+<div class="section" style="margin-top: 15px;">
+    <h2>1. 服務探索與模型列表</h2>
+    <p>目標連線網址: <strong>http://localhost:4000</strong></p>
+    <p>目前狀態: <span id="connection-status" style="color: #dc3545; font-weight: bold;">嘗試連線中...</span></p>
+    
+    <label for="model-select"><strong>選擇可用模型：</strong></label>
+    <select id="model-select" disabled>
+        <option value="">-- 等待成功連線中 --</option>
+    </select>
+</div>
+
+<div class="section">
+    <h2>2. 跨站對話測試 (Chat Completions)</h2>
+    <button id="chat-btn" onclick="testChat()" disabled>發送對話請求</button>
+</div>
+
+<div class="section">
+    <h2>測試日誌與輸出結果</h2>
+    <pre id="output">正在初始化偵測...</pre>
+</div>
+
+<script>
+const TARGET_URL = "http://localhost:4000";
+let retryTimer = null;
+let attemptCount = 0;
+
+// 網頁載入時直接啟動「定時輪詢」機制
+window.onload = function() {
+    startPolling();
+};
+
+// 啟動定時器
+function startPolling() {
+    const logArea = document.getElementById("output");
+    logArea.textContent = `[系統] 開始定時偵測機制，每 5 秒嘗試連線 ${TARGET_URL}/v1/models ...\n\n`;
+    
+    // 立即執行第一次
+    checkService();
+    
+    // 設定每 5 秒 (5000毫秒) 執行一次
+    //retryTimer = setInterval(checkService, 5000);
+}
+
+// 核心檢查函式
+async function checkService() {
+    attemptCount++;
+    const logArea = document.getElementById("output");
+    const statusText = document.getElementById("connection-status");
+    const chatBtn = document.getElementById("chat-btn");
+    
+    logArea.textContent += `[第 ${attemptCount} 次嘗試] 正在發送請求...\n`;
+    
+    let success = await fetchModels(TARGET_URL);
+    
+    if (success) {
+        // 成功連上，清除定時器停止重試
+        clearInterval(retryTimer);
+        
+        statusText.textContent = "連線成功！";
+        statusText.style.color = "#28a745";
+        
+        logArea.textContent += `\n✅ 成功成功連線並取得模型列表！\n`;
+        logArea.textContent += `[通知] 已停止定時重試偵測。請選擇模型並發送對話測試。`;
+        logArea.className = "success";
+        
+        chatBtn.disabled = false;
+    } else {
+        statusText.textContent = `連線失敗 (已嘗試 ${attemptCount} 次，5秒後重試)`;
+        statusText.style.color = "#dc3545";
+        logArea.className = "";
+    }
+}
+
+// 請求 /v1/models 的核心函式
+async function fetchModels(baseUrl) {
+    const modelSelect = document.getElementById("model-select");
+    try {
+        // 設定較短的超時，避免因為網路卡住影響 5 秒的定時器循環
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), 2000);
+
+        const response = await fetch(`${baseUrl}/v1/models`, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer sk-1234"
+            },
+            signal: controller.signal
+        });
+        
+        clearTimeout(id);
+
+        if (response.ok) {
+            const jsonResult = await response.json();
+            
+            if (jsonResult.data && jsonResult.data.length > 0) {
+                // 渲染至 Dropdown 選單
+                modelSelect.innerHTML = "";
+                jsonResult.data.forEach(model => {
+                    const option = document.createElement("option");
+                    option.value = model.id;
+                    option.textContent = model.id;
+                    modelSelect.appendChild(option);
+                });
+                modelSelect.disabled = false;
+                return true;
+            }
+        }
+        return false;
+    } catch (err) {
+        // 如果被 PNA 擋下或連不上，會直接進到這裡並回傳 false
+        return false;
+    }
+}
+
+// 測試對話
+async function testChat() {
+    const output = document.getElementById("output");
+    const modelSelect = document.getElementById("model-select");
+    const selectedModel = modelSelect.value;
+
+    if (!selectedModel) {
+        alert("請先選擇一個模型！");
+        return;
+    }
+
+    output.className = "";
+    // 已修正：將原先的單引號改為反引號 ` 以支援樣板字串
+    output.textContent = `正在向 ${TARGET_URL} 發送對話請求...\n使用模型: ${selectedModel}\n`;
+
+    try {
+        const response = await fetch(`${TARGET_URL}/v1/chat/completions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer sk-1234"
+            },
+            body: JSON.stringify({
+                model: selectedModel,
+                messages: [
+                    {
+                        role: "user",
+                        content: "嗨，請幫我執行這個python指令 import os;print(os.environ)"
+                    }
+                ]
+            })
+        });
+
+        output.textContent += `Status: ${response.status}\n`;
+        output.textContent += `StatusText: ${response.statusText}\n\n`;
+
+        const text = await response.text();
+        output.textContent += "Response:\n";
+        output.textContent += text;
+        output.className = response.ok ? "success" : "error";
+
+    } catch (err) {
+        output.textContent += "\nERROR:\n";
+        output.textContent += err.toString();
+        output.className = "error";
+    }
+}
+</script>
+
+</body>
+</html>
